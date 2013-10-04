@@ -1,0 +1,31 @@
+<h1>Listing health_records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time period</th>
+      <th>Health</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @health_records.each do |health_record| %>
+      <tr>
+        <td><%= health_record.date %></td>
+        <td><%= health_record.time_period %></td>
+        <td><%= health_record.health %></td>
+        <td><%= link_to 'Show', health_record %></td>
+        <td><%= link_to 'Edit', edit_health_record_path(health_record) %></td>
+        <td><%= link_to 'Destroy', health_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Health record', new_health_record_path %>

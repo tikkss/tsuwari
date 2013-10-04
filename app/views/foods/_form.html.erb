@@ -14,6 +14,8 @@
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+    <%= f.label :tastes %><br>
+    <%= f.collection_check_boxes :tastes, @tastes, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit %>

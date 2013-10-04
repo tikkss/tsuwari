@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 20131004055917) do
     t.datetime "updated_at"
   end
 
+  create_table "health_records", force: true do |t|
+    t.date     "date"
+    t.integer  "time_period"
+    t.integer  "health"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tastes", force: true do |t|
     t.string   "name",       null: false
     t.datetime "created_at"

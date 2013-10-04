@@ -1,5 +1,6 @@
 Tsuwari::Application.routes.draw do
   resources :foods
+  resources :health_records
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -41,7 +42,7 @@ Tsuwari::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

@@ -4,7 +4,8 @@ class FoodsController < ApplicationController
   # GET /foods
   # GET /foods.json
   def index
-    @foods = Food.all
+    @foods  = Food.all
+    @tastes = Taste.all
   end
 
   # GET /foods/1
