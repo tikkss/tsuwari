@@ -13,6 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20131004055917) do
 
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "food_tastes", force: true do |t|
     t.integer  "food_id"
     t.integer  "taste_id"
@@ -33,6 +39,17 @@ ActiveRecord::Schema.define(version: 20131004055917) do
     t.date     "date"
     t.integer  "time_period"
     t.integer  "health"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shops", force: true do |t|
+    t.string   "name"
+    t.string   "prefecture"
+    t.string   "city"
+    t.string   "address"
+    t.string   "url"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

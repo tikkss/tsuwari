@@ -1,5 +1,7 @@
 Tsuwari::Application.routes.draw do
   resources :foods
+  resources :shops
+  resources :categories
   resources :health_records
 
   # The priority is based upon order of creation: first created -> highest priority.
