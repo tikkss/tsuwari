@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @health_record.date %>
+</p>
+
+<p>
+  <strong>Time period:</strong>
+  <%= @health_record.time_period %>
+</p>
+
+<p>
+  <strong>Health:</strong>
+  <%= @health_record.health %>
+</p>
+
+<%= link_to 'Edit', edit_health_record_path(@health_record) %> |
+<%= link_to 'Back', health_records_path %>
