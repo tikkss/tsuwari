@@ -16,7 +16,7 @@ class FoodsController < ApplicationController
   # GET /foods/new
   def new
     @food = Food.new
-    Taste.all.each { |t|  @food.food_tastes.build(taste: t) }
+    @tastes.each { |t|  @food.food_tastes.build(taste: t) }
   end
 
   # GET /foods/1/edit
