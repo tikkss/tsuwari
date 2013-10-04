@@ -1,0 +1,29 @@
+<%= form_for(@health_record) do |f| %>
+  <% if @health_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@health_record.errors.count, "error") %> prohibited this health_record from being saved:</h2>
+
+      <ul>
+      <% @health_record.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :time_period %><br>
+    <%= f.number_field :time_period %>
+  </div>
+  <div class="field">
+    <%= f.label :health %><br>
+    <%= f.number_field :health %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
