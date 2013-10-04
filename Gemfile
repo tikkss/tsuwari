@@ -49,4 +49,6 @@ group :development, :test do
   gem 'capybara'
   gem 'cucumber'
   gem 'spring'
+  gem 'simplecov'
+  gem 'simplecov-rcov'
 end
