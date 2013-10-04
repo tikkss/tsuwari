@@ -1,11 +1,11 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :edit, :update, :destroy]
+  before_action :set_taste, only: [:new, :edit]
 
   # GET /foods
   # GET /foods.json
   def index
     @foods  = Food.all
-    @tastes = Taste.all
   end
 
   # GET /foods/1
@@ -70,6 +70,10 @@ class FoodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def food_params
-      params.require(:food).permit(:name)
+      params.require(:food).permit!
+    end
+
+    def set_taste
+      @tastes = Taste.all
     end
 end
