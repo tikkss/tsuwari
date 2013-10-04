@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 20131004054910) do
     t.datetime "updated_at"
   end
 
+  create_table "health_records", force: true do |t|
+    t.date     "date"
+    t.integer  "time_period"
+    t.integer  "health"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shops", force: true do |t|
     t.string   "name"
     t.string   "prefecture"
