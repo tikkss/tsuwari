@@ -8,6 +8,8 @@ describe "foods/new" do
   end
 
   it "renders new food form" do
+    @tastes = Taste.all
+
     render
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
