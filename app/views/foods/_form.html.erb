@@ -18,7 +18,7 @@
     <% @food.food_tastes.each do |food_taste| %>
       <%= f.fields_for :food_tastes, food_taste do |ft_build| %>
         <%= ft_build.check_box :taste_id, {checked: nil}, food_taste.taste.id, false %>
-        <%= ft_build.label food_taste.taste.name %>
+        <%= ft_build.label :taste_id, food_taste.taste.name %>
       <% end %>
     <% end %>
   </div>
