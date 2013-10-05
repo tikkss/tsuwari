@@ -1,6 +1,6 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :edit, :update, :destroy]
-  before_action :set_taste, only: [:new, :edit]
+  before_action :set_tastes, only: [:new, :edit]
 
   # GET /foods
   # GET /foods.json
@@ -74,7 +74,7 @@ class FoodsController < ApplicationController
       params.require(:food).permit(:name, food_tastes_attributes: [:taste_id])
     end
 
-    def set_taste
+    def set_tastes
       @tastes = Taste.all
     end
 end
