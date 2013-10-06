@@ -3,6 +3,8 @@
 <p>
   <strong>Name:</strong>
   <%= @food.name %>
+  <strong>Tastes:</strong>
+  <%= @food.food_tastes.map { |r| r.taste.name }.join(", ") %>
 </p>
 
 <%= link_to 'Edit', edit_food_path(@food) %> |
