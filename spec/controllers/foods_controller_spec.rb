@@ -80,6 +80,23 @@ describe FoodsController do
         post :create, {:food => valid_attributes}, valid_session
         response.should redirect_to(Food.last)
       end
+
+      context "味を指定した場合" do
+        before do
+          @food_tastes = Taste.limit(3).map { |r| { taste_id: r.id } }
+        end
+
+        it "FoodTasteに情報が入力されること" do
+          post :create, {
+            food: valid_attributes,
+            food_tastes_attributes: @food_tastes,
+          }, valid_session
+
+          expect(assigns(:food).taste_ids).to match_array(
+            @food_tastes.map { |k, v| v}
+          )
+        end
+      end
     end
 
     describe "with invalid params" do
