@@ -21,6 +21,9 @@ class FoodsController < ApplicationController
 
   # GET /foods/1/edit
   def edit
+    @tastes.each do |t|
+      @food.food_tastes.build(taste: t) unless @food.have_taste?(t.id)
+    end
   end
 
   # POST /foods
