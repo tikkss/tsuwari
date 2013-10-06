@@ -58,7 +58,8 @@ describe FoodsController do
     it "assigns the requested food as @food" do
       food = Food.create! valid_attributes
       get :edit, {:id => food.to_param}, valid_session
-      assigns(:food).should eq(food)
+      expect(assigns(:food)).to eq(food)
+      expect(assigns(:tastes)).to match_array(Taste.all)
     end
   end
 
