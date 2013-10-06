@@ -50,6 +50,7 @@ describe FoodsController do
     it "assigns a new food as @food" do
       get :new, {}, valid_session
       assigns(:food).should be_a_new(Food)
+      expect(assigns(:tastes)).to match_array(Taste.all)
     end
   end
 
