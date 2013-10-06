@@ -45,8 +45,19 @@ class FoodsController < ApplicationController
   # PATCH/PUT /foods/1
   # PATCH/PUT /foods/1.json
   def update
+    result = false
+
+    begin
+      ActiveRecord::Base.transaction do
+        @food.food_tastes.clear
+        result = @food.update(food_params)
+      end
+    rescue
+      logger.error($!)
+    end
+
     respond_to do |format|
-      if @food.update(food_params)
+      if result
         format.html { redirect_to @food, notice: 'Food was successfully updated.' }
         format.json { head :no_content }
       else

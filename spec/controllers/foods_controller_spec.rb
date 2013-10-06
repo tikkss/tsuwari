@@ -140,6 +140,30 @@ describe FoodsController do
         put :update, {:id => food.to_param, :food => valid_attributes}, valid_session
         response.should redirect_to(food)
       end
+
+      context "味情報が変更されている場合" do
+        before do
+          @after_taste  = Taste.create(name: :bbbbbbbbbbbbbbbbbbb)
+          @food = Food.create!(
+            valid_attributes.merge(
+              food_tastes_attributes: [{
+                taste_id: Taste.create!(name: :aaaaaaaaaaaaaaaaaaa).to_param
+              }]
+            )
+          )
+        end
+
+        let(:form_params) do
+          valid_attributes.merge(
+            food_tastes_attributes: [{ taste_id: @after_taste.to_param }]
+          )
+        end
+
+        it "味情報が更新されること" do
+          put :update, { id: @food.to_param, food: form_params }, valid_session
+          expect(assigns[:food].taste_ids).to eq([@after_taste.id])
+        end
+      end
     end
 
     describe "with invalid params" do
