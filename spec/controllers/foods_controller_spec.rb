@@ -198,6 +198,23 @@ describe FoodsController do
       delete :destroy, {:id => food.to_param}, valid_session
       response.should redirect_to(foods_url)
     end
-  end
 
+    context "味情報が登録されている場合" do
+      before do
+        @food = Food.create!(
+          valid_attributes.merge(
+            food_tastes_attributes: [{
+              taste_id: Taste.create!(name: :aaaaaaaaaaaaaaaaaaa).to_param
+            }]
+          )
+        )
+      end
+
+      it "味情報も削除されること" do
+        expect(FoodTaste.count).to eq(1)
+        delete :destroy, { id: @food.to_param }, valid_session
+        expect(FoodTaste.count).to eq(0)
+      end
+    end
+  end
 end
