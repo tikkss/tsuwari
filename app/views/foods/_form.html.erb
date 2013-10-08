@@ -15,20 +15,7 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %><br>
     <%= f.label :tastes %><br>
-    <%
-      @food.food_tastes.sort { |a, b|
-        a.taste.name <=> b.taste.name
-      }.each do |food_taste|
-    %>
-      <%= f.fields_for :food_tastes, food_taste do |builder| %>
-        <%=
-          builder.check_box :taste_id,
-          { checked: @food.have_taste?(food_taste.taste.id) },
-          food_taste.taste.id, false
-        %>
-        <%= builder.label :taste_id, food_taste.taste.name %>
-      <% end %>
-    <% end %>
+    <%= f.collection_check_boxes :taste_ids, @tastes, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit %>

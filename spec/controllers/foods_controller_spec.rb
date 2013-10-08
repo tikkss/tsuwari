@@ -84,18 +84,16 @@ describe FoodsController do
 
       context "味を指定した場合" do
         before do
-          @food_tastes = Taste.limit(3).map { |r| { taste_id: r.id } }
+          @taste_ids = Taste.limit(3).map { |r| r.id }
         end
 
         it "FoodTasteに情報が入力されること" do
           post :create, {
             food: valid_attributes,
-            food_tastes_attributes: @food_tastes,
+            taste_ids: @taste_ids
           }, valid_session
 
-          expect(assigns(:food).taste_ids).to match_array(
-            @food_tastes.map { |k, v| v}
-          )
+          expect(assigns(:food).taste_ids).to eq(@taste_ids)
         end
       end
     end
@@ -143,20 +141,15 @@ describe FoodsController do
 
       context "味情報が変更されている場合" do
         before do
+          @before_taste = Taste.create(name: :aaaaaaaaaaaaaaaaaaa)
           @after_taste  = Taste.create(name: :bbbbbbbbbbbbbbbbbbb)
           @food = Food.create!(
-            valid_attributes.merge(
-              food_tastes_attributes: [{
-                taste_id: Taste.create!(name: :aaaaaaaaaaaaaaaaaaa).to_param
-              }]
-            )
+            valid_attributes.merge(taste_ids: [@before_taste.id])
           )
         end
 
         let(:form_params) do
-          valid_attributes.merge(
-            food_tastes_attributes: [{ taste_id: @after_taste.to_param }]
-          )
+          valid_attributes.merge(taste_ids: [@after_taste.to_param])
         end
 
         it "味情報が更新されること" do
@@ -202,11 +195,7 @@ describe FoodsController do
     context "味情報が登録されている場合" do
       before do
         @food = Food.create!(
-          valid_attributes.merge(
-            food_tastes_attributes: [{
-              taste_id: Taste.create!(name: :aaaaaaaaaaaaaaaaaaa).to_param
-            }]
-          )
+          valid_attributes.merge(taste_ids: [Taste.create!(name: :zzz).id])
         )
       end
 

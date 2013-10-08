@@ -16,14 +16,10 @@ class FoodsController < ApplicationController
   # GET /foods/new
   def new
     @food = Food.new
-    @tastes.each { |t| @food.food_tastes.build(taste: t) }
   end
 
   # GET /foods/1/edit
   def edit
-    @tastes.each do |t|
-      @food.food_tastes.build(taste: t) unless @food.have_taste?(t.id)
-    end
   end
 
   # POST /foods
@@ -85,7 +81,7 @@ class FoodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def food_params
-      params.require(:food).permit(:name, food_tastes_attributes: [:taste_id])
+      params.require(:food).permit(:name, taste_ids: [])
     end
 
     def set_tastes
