@@ -49,7 +49,8 @@ describe FoodsController do
   describe "GET new" do
     it "assigns a new food as @food" do
       get :new, {}, valid_session
-      assigns(:food).should be_a_new(Food)
+      expect(assigns(:food)).to be_a_new(Food)
+      expect(assigns(:tastes)).to match_array(Taste.all)
     end
   end
 
@@ -57,7 +58,8 @@ describe FoodsController do
     it "assigns the requested food as @food" do
       food = Food.create! valid_attributes
       get :edit, {:id => food.to_param}, valid_session
-      assigns(:food).should eq(food)
+      expect(assigns(:food)).to eq(food)
+      expect(assigns(:tastes)).to match_array(Taste.all)
     end
   end
 
@@ -78,6 +80,21 @@ describe FoodsController do
       it "redirects to the created food" do
         post :create, {:food => valid_attributes}, valid_session
         response.should redirect_to(Food.last)
+      end
+
+      context "味を指定した場合" do
+        before do
+          @taste_ids = Taste.limit(3).map { |r| r.id }
+        end
+
+        it "FoodTasteに情報が入力されること" do
+          post :create, {
+            food: valid_attributes,
+            taste_ids: @taste_ids
+          }, valid_session
+
+          expect(assigns(:food).taste_ids).to eq(@taste_ids)
+        end
       end
     end
 
@@ -121,6 +138,25 @@ describe FoodsController do
         put :update, {:id => food.to_param, :food => valid_attributes}, valid_session
         response.should redirect_to(food)
       end
+
+      context "味情報が変更されている場合" do
+        before do
+          @before_taste = Taste.create(name: :aaaaaaaaaaaaaaaaaaa)
+          @after_taste  = Taste.create(name: :bbbbbbbbbbbbbbbbbbb)
+          @food = Food.create!(
+            valid_attributes.merge(taste_ids: [@before_taste.id])
+          )
+        end
+
+        let(:form_params) do
+          valid_attributes.merge(taste_ids: [@after_taste.to_param])
+        end
+
+        it "味情報が更新されること" do
+          put :update, { id: @food.to_param, food: form_params }, valid_session
+          expect(assigns[:food].taste_ids).to eq([@after_taste.id])
+        end
+      end
     end
 
     describe "with invalid params" do
@@ -155,6 +191,19 @@ describe FoodsController do
       delete :destroy, {:id => food.to_param}, valid_session
       response.should redirect_to(foods_url)
     end
-  end
 
+    context "味情報が登録されている場合" do
+      before do
+        @food = Food.create!(
+          valid_attributes.merge(taste_ids: [Taste.create!(name: :zzz).id])
+        )
+      end
+
+      it "味情報も削除されること" do
+        expect(FoodTaste.count).to eq(1)
+        delete :destroy, { id: @food.to_param }, valid_session
+        expect(FoodTaste.count).to eq(0)
+      end
+    end
+  end
 end
