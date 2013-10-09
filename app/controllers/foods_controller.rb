@@ -1,6 +1,6 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :edit, :update, :destroy]
-  before_action :set_taste, only: [:new, :edit]
+  before_action :set_tastes, only: [:new, :edit, :create]
 
   # GET /foods
   # GET /foods.json
@@ -41,8 +41,19 @@ class FoodsController < ApplicationController
   # PATCH/PUT /foods/1
   # PATCH/PUT /foods/1.json
   def update
+    result = false
+
+    begin
+      ActiveRecord::Base.transaction do
+        @food.food_tastes.clear
+        result = @food.update(food_params)
+      end
+    rescue
+      logger.error($!)
+    end
+
     respond_to do |format|
-      if @food.update(food_params)
+      if result
         format.html { redirect_to @food, notice: 'Food was successfully updated.' }
         format.json { head :no_content }
       else
@@ -70,10 +81,10 @@ class FoodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def food_params
-      params.require(:food).permit(:name, tastes: [:id])
+      params.require(:food).permit(:name, taste_ids: [])
     end
 
-    def set_taste
+    def set_tastes
       @tastes = Taste.all
     end
 end

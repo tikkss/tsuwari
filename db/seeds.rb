@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# 味マスタ入力
+Taste.create(%w(甘い 辛い 酸っぱい あっさり こってり).map { |v| { name: v } })
