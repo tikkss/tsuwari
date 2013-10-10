@@ -15,89 +15,42 @@ describe Shop do
       end
     end
     
+    shared_examples_for "店舗のカラムへ整数入力時にエラーが発生しないこと" do
+      let(:obj) { Shop.new(column => 1) }
+      it { obj.should have(0).error_on(column) }
+    end
+    shared_examples_for "店舗のカラムへ文字入力時にエラーが発生しないこと" do
+      let(:obj) { Shop.new(column => "abc") }
+      it { obj.should have(0).error_on(column) }
+    end
     describe "name" do
       let(:column) { :name }
-      context "整数の場合" do
-        let(:obj) { Shop.new(column => 1) }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
-      context "文字の場合" do
-        let(:obj) { Shop.new(column => "abc") }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
+      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
+      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
     end
     describe "prefecture" do
       let(:column) { :prefecture }
-      context "整数の場合" do
-        let(:obj) { Shop.new(column => 1) }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
-      context "文字の場合" do
-        let(:obj) { Shop.new(column => "abc") }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
+      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
+      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
     end
     describe "city" do
       let(:column) { :city }
-      context "整数の場合" do
-        let(:obj) { Shop.new(column => 1) }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
-      context "文字の場合" do
-        let(:obj) { Shop.new(column => "abc") }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
+      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
+      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
     end
     describe "address" do
       let(:column) { :address }
-      context "整数の場合" do
-        let(:obj) { Shop.new(column => 1) }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
-      context "文字の場合" do
-        let(:obj) { Shop.new(column => "abc") }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
+      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
+      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
     end
     describe "url" do
       let(:column) { :url }
-      context "整数の場合" do
-        let(:obj) { Shop.new(column => 1) }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
-      context "文字の場合" do
-        let(:obj) { Shop.new(column => "abc") }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
+      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
+      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
     end
     describe "category_id" do
       let(:column) { :category_id }
-      context "整数の場合" do
-        let(:obj) { Shop.new(column => 1) }
-        it "エラーが発生しないこと" do
-          obj.should have(0).error_on(column)
-        end
-      end
+      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
       context "文字の場合" do
         let(:obj) { Shop.new(column => "abc") }
         it "エラーが発生すること" do
