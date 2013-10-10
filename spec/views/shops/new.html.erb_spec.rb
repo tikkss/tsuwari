@@ -22,7 +22,7 @@ describe "shops/new" do
       assert_select "input#shop_city[name=?]", "shop[city]"
       assert_select "input#shop_address[name=?]", "shop[address]"
       assert_select "input#shop_url[name=?]", "shop[url]"
-      assert_select "input#shop_category_id[name=?]", "shop[category_id]"
+      assert_select "select#shop_category_id[name=?]", "shop[category_id]"
     end
   end
 end

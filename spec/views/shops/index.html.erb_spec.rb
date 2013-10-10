@@ -20,6 +20,7 @@ describe "shops/index" do
         :category_id => 1
       )
     ])
+    Shop.any_instance.stub_chain(:category, :name).and_return("category")
   end
 
   it "renders a list of shops" do
@@ -30,6 +31,6 @@ describe "shops/index" do
     assert_select "tr>td", :text => "City".to_s, :count => 2
     assert_select "tr>td", :text => "Address".to_s, :count => 2
     assert_select "tr>td", :text => "Url".to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "category", :count => 2
   end
 end
