@@ -27,7 +27,7 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @shop.category_id %>
+  <%= @shop.category.try(:name) %>
 </p>
 
 <%= link_to 'Edit', edit_shop_path(@shop) %> |
