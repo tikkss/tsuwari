@@ -15,46 +15,36 @@ describe Shop do
       end
     end
     
-    shared_examples_for "店舗のカラムへ整数入力時にエラーが発生しないこと" do
-      let(:obj) { Shop.new(column => 1) }
-      it { obj.should have(0).error_on(column) }
-    end
-    shared_examples_for "店舗のカラムへ文字入力時にエラーが発生しないこと" do
-      let(:obj) { Shop.new(column => "abc") }
+    shared_examples_for "バリデーションエラーが発生しないこと" do |model, column, input|
+      let(:obj) { model.new(column => input) }
       it { obj.should have(0).error_on(column) }
     end
     describe "name" do
-      let(:column) { :name }
-      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
-      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :name, 1
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :name, "abc"
     end
     describe "prefecture" do
-      let(:column) { :prefecture }
-      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
-      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :prefecture, 1
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :prefecture, "abc"
     end
     describe "city" do
-      let(:column) { :city }
-      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
-      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :city, 1
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :city, "abc"
     end
     describe "address" do
-      let(:column) { :address }
-      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
-      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :address, 1
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :address, "abc"
     end
     describe "url" do
-      let(:column) { :url }
-      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
-      it_behaves_like "店舗のカラムへ文字入力時にエラーが発生しないこと"
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :url, 1
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :url, "abc"
     end
     describe "category_id" do
-      let(:column) { :category_id }
-      it_behaves_like "店舗のカラムへ整数入力時にエラーが発生しないこと"
-      context "文字の場合" do
-        let(:obj) { Shop.new(column => "abc") }
+      it_behaves_like "バリデーションエラーが発生しないこと", Shop, :category_id, 1
+      context "対象カラムに文字列を入れた場合" do
+        let(:obj) { Shop.new(:category_id => "abc") }
         it "エラーが発生すること" do
-          obj.should have(1).error_on(column)
+          obj.should have(1).error_on(:category_id)
         end
       end
     end
