@@ -16,12 +16,16 @@
     <%= f.date_select :date %>
   </div>
   <div class="field">
-    <%= f.label :time_period %><br>
-    <%= f.number_field :time_period %>
+  <% HealthRecord::TIME_PERIODS.each do |time_period| %>
+    <%= f.radio_button :time_period, time_period[:value] %>
+    <%= f.label :time_period, time_period[:label], value: time_period[:value] %>
+  <% end %>
   </div>
   <div class="field">
-    <%= f.label :health %><br>
-    <%= f.number_field :health %>
+  <% HealthRecord::HEALTHS.each do |health| %>
+    <%= f.radio_button :health, health[:value] %>
+    <%= f.label :health, health[:label], value: health[:value] %>
+  <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
