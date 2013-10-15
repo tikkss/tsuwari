@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe HealthRecord do
-  before { @health_record = HealthRecord.new(date: Date.today, time_period: 1, health: 1) }
-
-  it { expect(@health_record).to respond_to(:date) }
-  it { expect(@health_record).to respond_to(:time_period) }
-  it { expect(@health_record).to respond_to(:health) }
-  it { expect(@health_record).to be_valid }
+  describe '属性' do
+    subject { HealthRecord.new(date: Date.today, time_period: 1, health: 1) }
+    it { should respond_to(:date) }
+    it { should respond_to(:time_period) }
+    it { should respond_to(:health) }
+    it { should be_valid }
+  end
 
   describe '#valid?' do
     describe '#time_period' do
