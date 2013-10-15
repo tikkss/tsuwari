@@ -48,4 +48,9 @@ RSpec.configure do |config|
 
   # FactoryGirl
   config.include FactoryGirl::Syntax::Methods
+
+  # spring
+  config.before(:all) do
+    FactoryGirl.reload
+  end
 end
