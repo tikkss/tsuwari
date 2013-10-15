@@ -44,11 +44,19 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Tsuwari App
+gem 'bootstrap-sass'
+gem 'paperclip'
+gem 'pry-rails'
+
 group :development, :test do
-  gem 'rspec-rails'
   gem 'capybara'
   gem 'cucumber'
-  gem 'spring'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-rcov'
+  gem 'spring'
 end
