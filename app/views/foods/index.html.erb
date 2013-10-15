@@ -1,5 +1,33 @@
 <h1>料理一覧</h1>
 
+<fieldset class="food-search">
+  <legend>料理検索条件</legend>
+  <%= form_for(@search_food, url: search_foods_path, method: :get,
+               html: { class: "form-search" }) do |f| %>
+    <div class="row">
+      <div class="span1">
+        <%= f.label :name, "料理名" %>
+      </div>
+      <%= f.text_field :name, class: "input-medium search-query" %>
+    </div>
+    <br />
+    <div class="row">
+      <div class="span1">
+        <%= f.label "味" %>
+      </div>
+      <%= f.collection_check_boxes :taste_ids, @tastes, :id, :name do |b|
+        b.label { b.check_box + b.text }
+      end %>
+    </div>
+    <br />
+    <div class="actions">
+      <%= f.submit "料理検索", class: "btn" %>
+    </div>
+  <% end %>
+</fieldset>
+
+<hr />
+
 <%= link_to '新規登録', new_food_path, class: "btn" %>
 
 <br />

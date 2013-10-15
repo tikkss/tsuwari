@@ -34,7 +34,9 @@ describe FoodsController do
     it "assigns all foods as @foods" do
       food = Food.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:foods).should eq([food])
+      expect(assigns(:foods)).to eq([food])
+      expect(assigns(:search_food)).to be_a(Food)
+      expect(assigns(:tastes)).to eq(Taste.all)
     end
   end
 
