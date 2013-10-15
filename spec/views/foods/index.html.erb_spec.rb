@@ -5,6 +5,15 @@ describe "foods/index" do
     @expect_tastes1 = %w(甘い あっさり)
     @expect_tastes2 = %w(辛い 苦い こってり)
 
+    assign(:search_food, stub_model(Food))
+
+    assign(
+      :tastes,
+      (@expect_tastes1 + @expect_tastes2).map do |name|
+        stub_model(Taste, name: name)
+      end
+    )
+
     assign(:foods, [
       stub_model(Food,
         name: "Name",
