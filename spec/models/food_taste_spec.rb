@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe FoodTaste do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "validate" do
+    it { should belong_to(:food) }
+    it { should belong_to(:taste) }
+  end
 end
