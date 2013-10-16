@@ -23,7 +23,7 @@ describe HealthRecordsController do
   # This should return the minimal set of attributes required to create a valid
   # HealthRecord. As you add validations to HealthRecord, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "date" => "2013-10-04" } }
+  let(:valid_attributes) { { "date" => "2013-10-04", time_period: 1, health: 2 } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
