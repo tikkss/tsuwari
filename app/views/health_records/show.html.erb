@@ -7,12 +7,12 @@
 
 <p>
   <strong>Time period:</strong>
-  <%= @health_record.time_period %>
+  <%= @health_record.get_time_period[:label] %>
 </p>
 
 <p>
   <strong>Health:</strong>
-  <%= @health_record.health %>
+  <%= @health_record.get_health[:label] %>
 </p>
 
 <%= link_to 'Edit', edit_health_record_path(@health_record) %> |

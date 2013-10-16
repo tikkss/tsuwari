@@ -16,8 +16,8 @@
     <% @health_records.each do |health_record| %>
       <tr>
         <td><%= health_record.date %></td>
-        <td><%= health_record.time_period %></td>
-        <td><%= health_record.health %></td>
+        <td><%= health_record.get_time_period[:label] %></td>
+        <td><%= health_record.get_health[:label] %></td>
         <td><%= link_to 'Show', health_record %></td>
         <td><%= link_to 'Edit', edit_health_record_path(health_record) %></td>
         <td><%= link_to 'Destroy', health_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
