@@ -13,8 +13,12 @@ describe "health_records/edit" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form[action=?][method=?]", health_record_path(@health_record), "post" do
-      assert_select "input#health_record_time_period[name=?]", "health_record[time_period]"
-      assert_select "input#health_record_health[name=?]", "health_record[health]"
+      assert_select "input#health_record_time_period_1[type=radio][name=?]", "health_record[time_period]"
+      assert_select "input#health_record_time_period_2[type=radio][name=?]", "health_record[time_period]"
+      assert_select "input#health_record_time_period_3[type=radio][name=?]", "health_record[time_period]"
+      assert_select "input#health_record_health_1[type=radio][name=?]", "health_record[health]"
+      assert_select "input#health_record_health_2[type=radio][name=?]", "health_record[health]"
+      assert_select "input#health_record_health_3[type=radio][name=?]", "health_record[health]"
     end
   end
 end
