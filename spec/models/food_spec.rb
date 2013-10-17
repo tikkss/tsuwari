@@ -15,7 +15,7 @@ describe Food do
         create_list(:food_short_name, 10)
       end
 
-      subject { Food.search_foods(search_word) }
+      subject { Food.search(search_word) }
       it { expect(subject.count).to eq(1) }
       it { expect(subject.first).to eq(@food) }
     end

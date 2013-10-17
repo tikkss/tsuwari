@@ -11,7 +11,7 @@ class FoodsController < ApplicationController
 
   # GET /foods/search
   def search
-    @foods  = Food.search_foods(food_params)
+    @foods  = Food.search(food_params)
     @search_food  = Food.new(food_params)
     render :index
   end
