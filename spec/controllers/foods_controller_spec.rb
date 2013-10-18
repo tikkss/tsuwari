@@ -34,7 +34,9 @@ describe FoodsController do
     it "assigns all foods as @foods" do
       food = Food.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:foods).should eq([food])
+      expect(assigns(:foods)).to eq([food])
+      expect(assigns(:search_food)).to be_a(Food)
+      expect(assigns(:tastes)).to eq(Taste.all)
     end
   end
 
@@ -204,6 +206,25 @@ describe FoodsController do
         delete :destroy, { id: @food.to_param }, valid_session
         expect(FoodTaste.count).to eq(0)
       end
+    end
+  end
+
+  describe "GET search" do
+    before do
+      @food = create(:food_long_name, :with_tastes)
+      create_list(:food_short_name, 10)
+    end
+
+    let(:search_params) {
+      { name: @food.name, taste_ids: @food.taste_ids + [""] }
+    }
+
+    it "検索結果が取得できること" do
+      get :search, food: search_params
+      expect(assigns[:foods].count).to eq(1)
+      expect(assigns[:foods].first).to eq(@food)
+      expect(assigns[:search_food].name).to eq(@food.name)
+      expect(assigns[:search_food].taste_ids).to eq(@food.taste_ids)
     end
   end
 end

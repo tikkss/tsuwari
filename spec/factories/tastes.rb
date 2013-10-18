@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :taste do
-    name { Faker::Lorem.word }
+    name { Faker::Lorem.characters(20) }
+    initialize_with { Taste.find_or_create_by(name: name) }
   end
 end

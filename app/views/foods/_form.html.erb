@@ -1,4 +1,4 @@
-<%= form_for(@food) do |f| %>
+<%= form_for(@food, html: { class: "form-search" }) do |f| %>
   <% if @food.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@food.errors.count, "error") %> prohibited this food from being saved:</h2>
@@ -11,13 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %><br>
-    <%= f.label :tastes %><br>
-    <%= f.collection_check_boxes :taste_ids, @tastes, :id, :name %>
+  <div class="row">
+    <div class="span1">
+      <%= f.label :name, "料理名" %>
+    </div>
+    <%= f.text_field :name, class: "input-medium search-query" %>
   </div>
+  <br />
+  <div class="row food-search">
+    <div class="span1">
+      <%= f.label "味" %>
+    </div>
+    <%= f.collection_check_boxes :taste_ids, @tastes, :id, :name do |b|
+      b.label { b.check_box + b.text }
+    end %>
+  </div>
+
+  <br />
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn" %>
   </div>
 <% end %>

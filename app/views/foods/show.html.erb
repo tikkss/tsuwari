@@ -1,11 +1,18 @@
+<h1>料理詳細</h1>
+
+<br />
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>料理名:</strong>
   <%= @food.name %>
-  <strong>Tastes:</strong>
-  <%= @food.tastes.map(&:name).join(", ") %>
+
+  <br />
+
+  <strong>味:</strong>
+  <%= @food.tastes.pluck(:name).join(", ") %>
 </p>
 
-<%= link_to 'Edit', edit_food_path(@food) %> |
-<%= link_to 'Back', foods_path %>
+<%= link_to '編集', edit_food_path(@food) %> |
+<%= link_to '一覧に戻る', foods_path %>

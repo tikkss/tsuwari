@@ -1,11 +1,19 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :edit, :update, :destroy]
-  before_action :set_tastes, only: [:new, :edit, :create]
+  before_action :set_tastes, only: [:index, :search, :new, :edit, :create]
 
   # GET /foods
   # GET /foods.json
   def index
     @foods  = Food.all
+    @search_food  = Food.new
+  end
+
+  # GET /foods/search
+  def search
+    @foods  = Food.search(food_params)
+    @search_food  = Food.new(food_params)
+    render :index
   end
 
   # GET /foods/1
