@@ -62,7 +62,7 @@ class HealthRecordsController < ApplicationController
   end
 
   def search_food
-    foods = Food.where("name like :name", name: "#{params[:name]}%").order(:name)
+    foods = Food.search(params)
     render json: foods.map(&:name).to_json
   end
 
