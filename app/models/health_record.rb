@@ -10,6 +10,9 @@ class HealthRecord < ActiveRecord::Base
     {value: 3, label: '良い'}
   ]
 
+  has_many :eatings, dependent: :destroy
+  has_many :foods, through: :eatings
+
   def get_time_period
     ret = {}
     TIME_PERIODS.each do |t|

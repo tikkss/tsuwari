@@ -1,3 +1,24 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  $("#search_food").autocomplete
+    source: (req, res) ->
+      $.ajax
+        url: "/health_records/search_food"
+        type: "get"
+        cache: false
+        dataType: "json"
+        data:
+          name: req.term
+        success: (o) ->
+          res o
+
+  $("#search_food").keypress (e) ->
+    e = window.event  unless e
+    if e.keyCode is 13
+      e.preventDefault()
+      $("#add_food").click()
+      false
+
+  $("#add_food").click ->
+    console.log $("#search_food").val()
+    $("#search_food").val("")
+

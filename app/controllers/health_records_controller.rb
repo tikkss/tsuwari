@@ -61,6 +61,11 @@ class HealthRecordsController < ApplicationController
     end
   end
 
+  def search_food
+    foods = Food.where("name like :name", name: "#{params[:name]}%").order(:name)
+    render json: foods.map(&:name).to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_health_record

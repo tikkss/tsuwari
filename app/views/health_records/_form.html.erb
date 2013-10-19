@@ -27,6 +27,14 @@
     <%= f.label :health, health[:label], value: health[:value] %>
   <% end %>
   </div>
+
+  <hr />
+
+  <h2>食べた料理</h2>
+
+  <%= text_field_tag :search_food %>
+  <%= button_tag :add_food, { type: 'button', id: 'add_food' } %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
