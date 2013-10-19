@@ -8,7 +8,7 @@ describe Food do
     it { should ensure_length_of(:name).is_at_most(255) }
   end
 
-  describe ".search_foods" do
+  describe ".search" do
     shared_examples "料理検索" do
       before do
         @food = create(:food_long_name, :with_tastes)
