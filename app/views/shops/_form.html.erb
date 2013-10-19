@@ -35,6 +35,13 @@
     <%= f.label :category_id %><br>
     <%= f.collection_select(:category_id, Category.all, :id, :name, include_blank: true) %>
   </div>
+
+  提供している料理
+  <table class='table table-striped' style='width: 50%;'>
+  <%= f.fields_for :servings do |builder| %>
+    <%= render 'serving_fields', f: builder %>
+  <% end %>
+  </table>
   <div class="actions">
     <%= f.submit %>
   </div>
