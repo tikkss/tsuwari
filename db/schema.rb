@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019053707) do
+ActiveRecord::Schema.define(version: 20131020013144) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20131019053707) do
   end
 
   add_index "eatings", ["food_id"], name: "index_eatings_on_food_id"
+  add_index "eatings", ["health_record_id", "food_id"], name: "index_eatings_on_health_record_id_and_food_id", unique: true
   add_index "eatings", ["health_record_id"], name: "index_eatings_on_health_record_id"
 
   create_table "food_tastes", force: true do |t|
