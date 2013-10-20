@@ -215,16 +215,29 @@ describe FoodsController do
       create_list(:food_short_name, 10)
     end
 
-    let(:search_params) {
-      { name: @food.name, taste_ids: @food.taste_ids + [""] }
-    }
+    context "format html" do
+      let(:search_params) {
+        { name: @food.name, taste_ids: @food.taste_ids + [""] }
+      }
 
-    it "検索結果が取得できること" do
-      get :search, food: search_params
-      expect(assigns[:foods].count).to eq(1)
-      expect(assigns[:foods].first).to eq(@food)
-      expect(assigns[:search_food].name).to eq(@food.name)
-      expect(assigns[:search_food].taste_ids).to eq(@food.taste_ids)
+      it "検索結果が取得できること" do
+        get :search, food: search_params
+        expect(assigns[:foods].count).to eq(1)
+        expect(assigns[:foods].first).to eq(@food)
+        expect(assigns[:search_food].name).to eq(@food.name)
+        expect(assigns[:search_food].taste_ids).to eq(@food.taste_ids)
+      end
+    end
+
+    context "format json" do
+      let(:search_params) { { name: @food.name } }
+
+      it "検索結果が取得できること" do
+        get :search, food: search_params, format: :json
+        expect(assigns[:foods].count).to eq(1)
+        expect(assigns[:foods].first).to eq(@food)
+        expect(assigns[:search_food]).to be_nil
+      end
     end
   end
 end
