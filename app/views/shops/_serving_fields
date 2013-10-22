@@ -1,0 +1,8 @@
+<tr class='fields'>
+  <td>
+    <%= f.collection_select :food_id, Food.all, :id, :name, {include_blank: true}, {} %>
+  </td>
+  <td>
+    <%= link_to_remove_fields '削除', f %>
+  </td>
+</tr>
