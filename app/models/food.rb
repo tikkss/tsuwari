@@ -3,8 +3,10 @@ class Food < ActiveRecord::Base
   has_many :tastes, through: :food_tastes
   has_many :servings, dependent: :destroy
 
-  validates :name, presence: true, length: { maximum: 255 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
 
+  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  
   scope :named_like, ->(name) {
     name.blank? ? all : where("foods.name like :name", name: "%#{name}%")
   }
@@ -12,6 +14,7 @@ class Food < ActiveRecord::Base
   scope :tastes_with, ->(taste_ids) {
     taste_ids.blank? ? all : where(tastes: { id: taste_ids })
   }
+
 
   # 検索フォームの条件にあった情報を取得
   #

@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe Food do
+  it { should have_many(:food_tastes).dependent(:destroy) }
+  it { should have_many(:tastes).through(:food_tastes) }
+  it { should have_many(:servings).dependent(:destroy) }
+  it { should have_attached_file(:photo) }
+  
   describe "validate" do
-    it { should have_many(:food_tastes).dependent(:destroy) }
-    it { should have_many(:tastes).through(:food_tastes) }
-    it { should have_many(:servings).dependent(:destroy) }
     it { should validate_presence_of(:name) }
+    it { should validate_uniqueness_of(:name) }
     it { should ensure_length_of(:name).is_at_most(255) }
   end
 

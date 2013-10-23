@@ -12,6 +12,11 @@
 
   <strong>味:</strong>
   <%= @food.tastes.pluck(:name).join(", ") %>
+  
+  <br />
+  
+  <strong>写真:</strong>
+  <%= image_tag @food.photo.url(:medium) %>
 </p>
 
 <%= link_to '編集', edit_food_path(@food) %> |
