@@ -2,12 +2,13 @@ $ ->
   $("#search_food").autocomplete
     source: (req, res) ->
       $.ajax
-        url: "/health_records/search_food"
+        url: "/foods/search.json"
         type: "get"
         cache: false
         dataType: "json"
         data:
-          name: req.term
+          food:
+            name: req.term
         success: (o) ->
           res o
 

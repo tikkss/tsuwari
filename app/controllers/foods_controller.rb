@@ -12,8 +12,15 @@ class FoodsController < ApplicationController
   # GET /foods/search
   def search
     @foods  = Food.search(food_params)
-    @search_food  = Food.new(food_params)
-    render :index
+
+    respond_to do |format|
+      format.html do
+        @search_food  = Food.new(food_params)
+        render :index
+      end
+
+      format.json { render json: @foods.pluck(:name).to_json }
+    end
   end
 
   # GET /foods/1
