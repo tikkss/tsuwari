@@ -1,11 +1,14 @@
 Tsuwari::Application.routes.draw do
   resources :foods do
-     collection { get :search }
+    collection { get :search }
   end
 
   resources :shops
   resources :categories
-  resources :health_records
+
+  resources :health_records do
+    collection { get :new_eating }
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

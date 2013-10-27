@@ -157,4 +157,25 @@ describe HealthRecordsController do
     end
   end
 
+  describe "GET new_eating" do
+    context "存在する料理を指定した場合" do
+      before do
+        @food = create(:food)
+      end
+
+      it "new_eating viewにeatingが追加されること" do
+        get :new_eating, format: :coffee, name: @food.name
+        expect(assigns(:eating).food).to eq(@food)
+        expect(response).to render_template(:new_eating)
+      end
+    end
+
+    context "存在しない料理を指定した場合" do
+      it "eatingが作られず、エラーテンプレートにとばされること" do
+        get :new_eating, format: :coffee, name: :hoge
+        expect(assigns(:eating)).to be_nil
+        expect(response).to render_template(partial: "_food_not_found")
+      end
+    end
+  end
 end

@@ -61,6 +61,18 @@ class HealthRecordsController < ApplicationController
     end
   end
 
+  def new_eating
+    food = Food.find_by(name: params[:name])
+
+    if food
+      @eating = Eating.new(food: food, amount: Eating::DEFAULT_AMOUNT)
+      render layout: false
+    else
+      render layout: false, partial: "food_not_found",
+        locals: { name: params[:name] }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_health_record
@@ -69,6 +81,8 @@ class HealthRecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def health_record_params
-      params.require(:health_record).permit(:date, :time_period, :health)
+      params.require(:health_record).permit(
+        :date, :time_period, :health, eatings_attributes: [:food_id, :amount]
+      )
     end
 end

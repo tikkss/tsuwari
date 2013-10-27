@@ -1,0 +1,16 @@
+<tr class="fields">
+  <td class="eating_name"><%= eating.food.name %></td>
+  <td>
+    <div>
+      <%= fields_for "health_record[eatings_attributes]", eating,
+        namespace: :health_record, index: eating.food_id  do |f| %>
+        <% Eating::AMOUNTS.each do |amount| %>
+          <%= f.hidden_field :food_id %>
+          <%= f.radio_button :amount, amount[:value] %>
+          <%= f.label :amount, amount[:label] %>
+        <% end %>
+        <%= link_to_remove_fields "remove", f %>
+      <% end %>
+    </div>
+  </td>
+</tr>
