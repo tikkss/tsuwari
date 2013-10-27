@@ -20,20 +20,28 @@ $ ->
       false
 
   $("#add_food").click ->
+    $("#food_error").hide()
     check_food = false
+    fields     = null
     search_food = $("#search_food").val()
     $(".eating_name").each (idx, obj) ->
       if search_food == $(obj).text()
+        console.log $(obj).css("display")
+        fields = obj
         check_food = true
 
-    if check_food
+    if !check_food
+      $.get(
+        "/health_records/new_eating",
+        name: search_food
+      )
+      return
+
+    if $(fields).closest('.fields').is(':visible')
       $("#food_error").show()
       $("#food_name").text(search_food)
       $("#error_message").text("は既に追加されています")
-      return
+    else
+      $(fields).closest('.fields').show()
 
-    $.get(
-      "/health_records/new_eating",
-      name: search_food
-    )
 
