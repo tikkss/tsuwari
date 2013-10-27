@@ -6,6 +6,8 @@ class Eating < ActiveRecord::Base
     { value: 4, label: "全部" },
   ]
 
+  DEFAULT_AMOUNT = 1
+
   belongs_to :health_record
   belongs_to :food
 
