@@ -82,7 +82,8 @@ class HealthRecordsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def health_record_params
       params.require(:health_record).permit(
-        :date, :time_period, :health, eatings_attributes: [:food_id, :amount]
+        :date, :time_period, :health,
+        eatings_attributes: [:food_id, :amount, :_destroy]
       )
     end
 end
