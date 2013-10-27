@@ -7,6 +7,9 @@ describe HealthRecord do
     it { should respond_to(:time_period) }
     it { should respond_to(:health) }
     it { should be_valid }
+    it { should have_many(:eatings).dependent(:destroy) }
+    it { should have_many(:foods).through(:eatings) }
+    it { should accept_nested_attributes_for(:eatings).allow_destroy(true) }
   end
 
   describe '#valid?' do

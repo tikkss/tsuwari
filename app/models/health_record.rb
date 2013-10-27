@@ -13,6 +13,9 @@ class HealthRecord < ActiveRecord::Base
   has_many :eatings, dependent: :destroy
   has_many :foods, through: :eatings
 
+  accepts_nested_attributes_for :eatings,
+    reject_if: ->(a) { a[:amount].blank? }, allow_destroy: true
+
   def get_time_period
     ret = {}
     TIME_PERIODS.each do |t|

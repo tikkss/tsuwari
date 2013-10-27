@@ -13,5 +13,4 @@ class Eating < ActiveRecord::Base
 
   validates :amount, presence: true, numericality: { only_integer: true },
     inclusion: { in: AMOUNTS.map { |amount| amount[:value] } }
-  validates :health_record_id, presence: true, uniqueness: { scope: :food_id }
 end
