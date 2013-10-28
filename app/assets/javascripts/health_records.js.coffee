@@ -26,7 +26,6 @@ $ ->
     search_food = $("#search_food").val()
     $(".eating_name").each (idx, obj) ->
       if search_food == $(obj).text()
-        console.log $(obj).css("display")
         fields = obj
         check_food = true
 
@@ -35,6 +34,7 @@ $ ->
         "/health_records/new_eating",
         name: search_food
       )
+      $("#search_food").val('')
       return
 
     if $(fields).closest('.fields').is(':visible')
@@ -42,6 +42,5 @@ $ ->
       $("#food_name").text(search_food)
       $("#error_message").text("は既に追加されています")
     else
+      $(fields).next("td").find("input[type='hidden']" + '.destroy').val(false)
       $(fields).closest('.fields').show()
-
-
