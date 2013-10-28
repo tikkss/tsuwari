@@ -31,6 +31,7 @@ class HealthRecordsController < ApplicationController
         format.html { redirect_to @health_record, notice: 'Health record was successfully created.' }
         format.json { render action: 'show', status: :created, location: @health_record }
       else
+        @health_record.eatings.clear
         format.html { render action: 'new' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
