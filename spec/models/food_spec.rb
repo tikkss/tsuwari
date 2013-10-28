@@ -4,8 +4,9 @@ describe Food do
   it { should have_many(:food_tastes).dependent(:destroy) }
   it { should have_many(:tastes).through(:food_tastes) }
   it { should have_many(:servings).dependent(:destroy) }
+  it { should have_many(:eatings).dependent(:destroy) }
   it { should have_attached_file(:photo) }
-  
+
   describe "validate" do
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }

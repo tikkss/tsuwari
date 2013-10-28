@@ -31,6 +31,7 @@ class HealthRecordsController < ApplicationController
         format.html { redirect_to @health_record, notice: 'Health record was successfully created.' }
         format.json { render action: 'show', status: :created, location: @health_record }
       else
+        @health_record.eatings.clear
         format.html { render action: 'new' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
@@ -40,8 +41,18 @@ class HealthRecordsController < ApplicationController
   # PATCH/PUT /health_records/1
   # PATCH/PUT /health_records/1.json
   def update
+    result = false
+    begin
+      ActiveRecord::Base.transaction do
+        @health_record.eatings.clear
+        result = @health_record.update(health_record_params)
+      end
+    rescue
+      logger.error $!
+    end
+
     respond_to do |format|
-      if @health_record.update(health_record_params)
+      if result
         format.html { redirect_to @health_record, notice: 'Health record was successfully updated.' }
         format.json { head :no_content }
       else
@@ -61,6 +72,18 @@ class HealthRecordsController < ApplicationController
     end
   end
 
+  def new_eating
+    food = Food.find_by(name: params[:name])
+
+    if food
+      @eating = Eating.new(food: food, amount: Eating::DEFAULT_AMOUNT)
+      render layout: false
+    else
+      render layout: false, partial: "food_not_found",
+        locals: { name: params[:name] }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_health_record
@@ -69,6 +92,9 @@ class HealthRecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def health_record_params
-      params.require(:health_record).permit(:date, :time_period, :health)
+      params.require(:health_record).permit(
+        :date, :time_period, :health,
+        eatings_attributes: [:food_id, :amount, :_destroy]
+      )
     end
 end

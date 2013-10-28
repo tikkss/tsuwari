@@ -96,6 +96,28 @@ describe HealthRecordsController do
         response.should render_template("new")
       end
     end
+
+    context "料理を追加した場合" do
+      before do
+        @eatings = build_list(:eating, 3, health_record: nil)
+      end
+
+      let(:parameters) {
+        {
+          date: Time.now.strftime("%Y-%m-%d"), time_period: 1, health: 1,
+          eatings_attributes: @eatings.map do |r|
+            { food_id: r.food_id, amount: r.amount }
+          end
+        }
+      }
+
+      context "パラメータに不備がない場合" do
+        it "HealthRecordに紐付いた食べた料理が追加されること" do
+          post :create, { health_record: parameters }, valid_session
+          expect(assigns(:health_record).eating_ids).to have(3).items
+        end
+      end
+    end
   end
 
   describe "PUT update" do
@@ -157,4 +179,25 @@ describe HealthRecordsController do
     end
   end
 
+  describe "GET new_eating" do
+    context "存在する料理を指定した場合" do
+      before do
+        @food = create(:food)
+      end
+
+      it "new_eating viewにeatingが追加されること" do
+        get :new_eating, format: :coffee, name: @food.name
+        expect(assigns(:eating).food).to eq(@food)
+        expect(response).to render_template(:new_eating)
+      end
+    end
+
+    context "存在しない料理を指定した場合" do
+      it "eatingが作られず、エラーテンプレートにとばされること" do
+        get :new_eating, format: :coffee, name: :hoge
+        expect(assigns(:eating)).to be_nil
+        expect(response).to render_template(partial: "_food_not_found")
+      end
+    end
+  end
 end
