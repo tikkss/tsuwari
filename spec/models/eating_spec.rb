@@ -8,5 +8,6 @@ describe Eating do
     it { should validate_numericality_of(:amount).only_integer }
     it { should ensure_inclusion_of(:amount).
          in_array(Eating::AMOUNTS.map { |h| h[:value] }) }
+    it { should validate_presence_of(:food) }
   end
 end
