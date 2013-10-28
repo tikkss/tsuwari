@@ -32,6 +32,10 @@ class HealthRecord < ActiveRecord::Base
     return ret
   end
 
-  validates :time_period, inclusion: { in: TIME_PERIODS.map{ |time_period| time_period[:value] } }
-  validates :health,      inclusion: { in: HEALTHS.map{ |health| health[:value] } }
+  validates :time_period, presence: true,
+    inclusion: { in: TIME_PERIODS.map{ |time_period| time_period[:value] } }
+  validates :health, presence: true,
+    inclusion: { in: HEALTHS.map{ |health| health[:value] } }
+  validates :date, presence: true, uniqueness: { scope: :time_period }
+  validates :eatings, associated: true
 end

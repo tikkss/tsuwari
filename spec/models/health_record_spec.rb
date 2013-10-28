@@ -9,6 +9,9 @@ describe HealthRecord do
     it { should be_valid }
     it { should have_many(:eatings).dependent(:destroy) }
     it { should have_many(:foods).through(:eatings) }
+    it { should validate_presence_of(:health) }
+    it { should validate_presence_of(:time_period) }
+    it { should validate_uniqueness_of(:date).scoped_to(:time_period) }
     it { should accept_nested_attributes_for(:eatings).allow_destroy(true) }
   end
 
