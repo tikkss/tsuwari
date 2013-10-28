@@ -41,8 +41,18 @@ class HealthRecordsController < ApplicationController
   # PATCH/PUT /health_records/1
   # PATCH/PUT /health_records/1.json
   def update
+    result = false
+    begin
+      ActiveRecord::Base.transaction do
+        @health_record.eatings.clear
+        result = @health_record.update(health_record_params)
+      end
+    rescue
+      logger.error $!
+    end
+
     respond_to do |format|
-      if @health_record.update(health_record_params)
+      if result
         format.html { redirect_to @health_record, notice: 'Health record was successfully updated.' }
         format.json { head :no_content }
       else
