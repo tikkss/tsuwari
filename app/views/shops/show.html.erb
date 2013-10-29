@@ -30,5 +30,10 @@
   <%= @shop.category.try(:name) %>
 </p>
 
+<p>
+  <strong>写真:</strong>
+  <%= image_tag @shop.photo.url(:medium) %>
+</p>
+
 <%= link_to 'Edit', edit_shop_path(@shop) %> |
 <%= link_to 'Back', shops_path %>

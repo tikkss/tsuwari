@@ -5,4 +5,6 @@ class Shop < ActiveRecord::Base
   has_many :foods, through: :servings
   
   validates :category_id, numericality: {only_integer: true}, allow_nil: true
+  
+  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 end

@@ -35,6 +35,10 @@
     <%= f.label :category_id %><br>
     <%= f.collection_select(:category_id, Category.all, :id, :name, include_blank: true) %>
   </div>
+  <div class="field">
+    <%= f.label "写真" %><br>
+    <%= f.file_field :photo %>
+  </div>
 
   提供している料理
   <table class='table table-striped' style='width: 50%;'>
