@@ -40,6 +40,17 @@ class HealthRecord < ActiveRecord::Base
     eatings.map { |r| r.valid? }.include?(false)
   end
 
+  # Eatingのvalidateに引っかかったfood_nameを連結して取得
+  # 引っかかったものが無ければnilを返す
+  #
+  # @return [String, NilClass]
+  def not_found_food
+    result = []
+    eatings.each { |r| result << r.food_name unless r.valid? }
+
+    result.count > 0 ? result.join(", ") : nil
+  end
+
   validates :time_period, presence: true,
     inclusion: { in: TIME_PERIODS.map{ |time_period| time_period[:value] } }
   validates :health, presence: true,

@@ -89,4 +89,52 @@ describe HealthRecord do
       end
     end
   end
+
+  describe "#not_found_food" do
+    context "各eatingのvalidateにひっかからない場合" do
+      before do
+        @health_record = build(
+          :health_record,
+          eatings: build_list(:eating, 5, health_record: nil)
+        )
+        @health_record.save
+      end
+
+      subject { @health_record.not_found_food }
+      it { expect(subject).to be_nil }
+    end
+
+    context "各eatingのvalidateにひっかかる場合" do
+      context "eatingのvalidateに引っかかるものだけ登録されている場合" do
+        before do
+          @ng_eatings = build_list(:eating, 5, health_record: nil, food_id: nil)
+          @health_record = build(
+            :health_record,
+            eatings: @ng_eatings
+          )
+          @health_record.save
+        end
+
+        let(:not_found_food) { @ng_eatings.map(&:food_name).join(", ") }
+        subject { @health_record.not_found_food }
+        it { expect(subject).to eq(not_found_food) }
+      end
+
+      context "eatingのvalidateに引っかかるものと引っかからないものが混在している場合" do
+        before do
+          @ng_eatings = build_list(:eating, 2, health_record: nil, food_id: nil)
+          @ok_eatings = build_list(:eating, 3, health_record: nil)
+          @health_record = build(
+            :health_record,
+            eatings: @ng_eatings + @ok_eatings
+          )
+          @health_record.save
+        end
+
+        let(:not_found_food) { @ng_eatings.map(&:food_name).join(", ") }
+        subject { @health_record.not_found_food }
+        it { expect(subject).to eq(not_found_food) }
+      end
+    end
+  end
 end
