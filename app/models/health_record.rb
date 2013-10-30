@@ -51,6 +51,11 @@ class HealthRecord < ActiveRecord::Base
     result.count > 0 ? result.join(", ") : nil
   end
 
+  # Eatingのvalidateに引っかかったものは除外
+  def cut_eatings_invalid
+    self.eatings = eatings.select { |r| r.valid? }
+  end
+
   validates :time_period, presence: true,
     inclusion: { in: TIME_PERIODS.map{ |time_period| time_period[:value] } }
   validates :health, presence: true,

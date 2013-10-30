@@ -137,4 +137,53 @@ describe HealthRecord do
       end
     end
   end
+
+  describe "#cut_eatings_invalid" do
+    context "各eatingのvalidateにひっかからない場合" do
+      before do
+        @health_record = build(
+          :health_record,
+          eatings: build_list(:eating, 5, health_record: nil)
+        )
+        @health_record.save
+        @health_record.cut_eatings_invalid
+      end
+
+      subject { @health_record.eatings }
+      it { expect(subject.size).to eq(5) }
+    end
+
+    context "各eatingのvalidateにひっかかる場合" do
+      context "eatingのvalidateに引っかかるものだけ登録されている場合" do
+        before do
+          @ng_eatings = build_list(:eating, 5, health_record: nil, food_id: nil)
+          @health_record = build(
+            :health_record,
+            eatings: @ng_eatings
+          )
+          @health_record.save
+          @health_record.cut_eatings_invalid
+        end
+
+        subject { @health_record.eatings }
+        it { expect(subject.size).to eq(0) }
+      end
+
+      context "eatingのvalidateに引っかかるものと引っかからないものが混在している場合" do
+        before do
+          @ng_eatings = build_list(:eating, 2, health_record: nil, food_id: nil)
+          @ok_eatings = build_list(:eating, 3, health_record: nil)
+          @health_record = build(
+            :health_record,
+            eatings: @ng_eatings + @ok_eatings
+          )
+          @health_record.save
+          @health_record.cut_eatings_invalid
+        end
+
+        subject { @health_record.eatings }
+        it { expect(subject.size).to eq(3) }
+      end
+    end
+  end
 end
