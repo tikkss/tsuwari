@@ -1,0 +1,9 @@
+# ImageMagick must be installed and Paperclip must have access it.
+# You might make config/initializers/paperclip.rb and add this line.
+
+# For example
+# Windows
+# Paperclip.options[:command_path] = "C:/Program Files/ImageMagick-6.8.7-Q16"
+#
+# Others
+# Paperclip.options[:command_path] = "/usr/local/bin/"
