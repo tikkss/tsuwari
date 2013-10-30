@@ -31,7 +31,10 @@ class HealthRecordsController < ApplicationController
         format.html { redirect_to @health_record, notice: 'Health record was successfully created.' }
         format.json { render action: 'show', status: :created, location: @health_record }
       else
-        @health_record.eatings.clear
+        if @health_record.eatings_invalid?
+          @not_found_food = @health_record.not_found_food
+          @health_record.cut_eatings_invalid
+        end
         format.html { render action: 'new' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
@@ -76,7 +79,9 @@ class HealthRecordsController < ApplicationController
     food = Food.find_by(name: params[:name])
 
     if food
-      @eating = Eating.new(food: food, amount: Eating::DEFAULT_AMOUNT)
+      @eating = Eating.new(
+        food: food, food_name: params[:name], amount: Eating::DEFAULT_AMOUNT
+      )
       render layout: false
     else
       render layout: false, partial: "food_not_found",

@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <% if @not_found_food %>
+    <%= render "eatings_invalid", foods: @not_found_food %>
+  <% end %>
+
   <div class="field">
     <%= f.label :date %><br>
     <%= f.date_select :date %>
@@ -36,7 +40,7 @@
     <%= text_field_tag :search_food %>
     <%= button_tag "料理追加", { type: "button", id: "add_food" } %>
     <div id="food_error">
-      "<span id="food_name"></span>"
+      "<span id="food_name" class="error_food"></span>"
       <span id="error_message"></span>
     </div>
     <table class="table table-striped" style="width: 50%;" id="eatings">
