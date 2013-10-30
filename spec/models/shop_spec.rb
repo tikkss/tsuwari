@@ -4,6 +4,7 @@ describe Shop do
   it { should belong_to(:category) }
   it { should have_many(:servings).dependent(:destroy) }
   it { should have_many(:foods).through(:servings) }
+  it { should have_attached_file(:photo) }
 
   it { should allow_value(nil).for(:name) }
   it { should allow_value(1).for(:name) }
