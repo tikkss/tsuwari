@@ -8,6 +8,8 @@ class Eating < ActiveRecord::Base
 
   DEFAULT_AMOUNT = 1
 
+  attr_accessor :food_name
+
   belongs_to :health_record
   belongs_to :food
 

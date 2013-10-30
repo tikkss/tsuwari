@@ -6,6 +6,7 @@
         namespace: :health_record, index: eating.food_id  do |f| %>
         <% Eating::AMOUNTS.each do |amount| %>
           <%= f.hidden_field :food_id %>
+          <%= f.hidden_field :food_name %>
           <%= f.radio_button :amount, amount[:value] %>
           <%= f.label :amount, amount[:label] %>
         <% end %>

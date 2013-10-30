@@ -94,7 +94,7 @@ class HealthRecordsController < ApplicationController
     def health_record_params
       params.require(:health_record).permit(
         :date, :time_period, :health,
-        eatings_attributes: [:food_id, :amount, :_destroy]
+        eatings_attributes: [:food_id, :amount, :food_name, :_destroy]
       )
     end
 end
