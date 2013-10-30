@@ -33,4 +33,60 @@ describe HealthRecord do
       end
     end
   end
+
+  describe "#eatings_invalid?" do
+    context "各eatingのvalidateにひっかからない場合" do
+      context "eatingを複数件登録した場合" do
+       before do
+         @health_record = build(
+           :health_record,
+           eatings: build_list(:eating, 5, health_record: nil)
+         )
+         @health_record.save
+       end
+
+       subject { @health_record.eatings_invalid? }
+       it { expect(subject).to be_false }
+      end
+
+      context "eatingを一件も登録していない場合" do
+       before do
+         @health_record = build(:health_record)
+         @health_record.save
+       end
+
+       subject { @health_record.eatings_invalid? }
+       it { expect(subject).to be_false }
+      end
+    end
+
+    context "各eatingのvalidateにひっかかる場合" do
+      context "eatingのvalidateに引っかかるものだけ登録されている場合" do
+        before do
+          @health_record = build(
+            :health_record,
+            eatings: build_list(:eating, 5, health_record: nil, food_id: nil)
+          )
+          @health_record.save
+        end
+
+        subject { @health_record.eatings_invalid? }
+        it { expect(subject).to be_true }
+      end
+
+      context "eatingのvalidateに引っかかるものと引っかからないものが混在している場合" do
+        before do
+          @health_record = build(
+            :health_record,
+            eatings: build_list(:eating, 2, health_record: nil, food_id: nil)
+          )
+          @health_record.eatings += build_list(:eating, 3, health_record: nil)
+          @health_record.save
+        end
+
+        subject { @health_record.eatings_invalid? }
+        it { expect(subject).to be_true }
+      end
+    end
+  end
 end

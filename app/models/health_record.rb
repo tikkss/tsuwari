@@ -32,6 +32,14 @@ class HealthRecord < ActiveRecord::Base
     return ret
   end
 
+  # Eatingのvalidateに引っかかったかどうか
+  # valid? = false が一件でもあればtrueを返す
+  #
+  # @return [TrueClass, FalseClass]
+  def eatings_invalid?
+    eatings.map { |r| r.valid? }.include?(false)
+  end
+
   validates :time_period, presence: true,
     inclusion: { in: TIME_PERIODS.map{ |time_period| time_period[:value] } }
   validates :health, presence: true,
