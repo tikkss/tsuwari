@@ -45,9 +45,7 @@ class HealthRecord < ActiveRecord::Base
   #
   # @return [String, NilClass]
   def not_found_food
-    result = []
-    eatings.each { |r| result << r.food_name unless r.valid? }
-
+    result = eatings.select { |r| !r.valid? }.map(&:food_name)
     result.count > 0 ? result.join(", ") : nil
   end
 
