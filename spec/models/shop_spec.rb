@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Shop do
   it { should belong_to(:category) }
   it { should have_many(:servings).dependent(:destroy) }
+  it { should accept_nested_attributes_for(:servings).allow_destroy(true) }
   it { should have_many(:foods).through(:servings) }
 
   it { should allow_value(nil).for(:name) }

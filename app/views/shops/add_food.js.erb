@@ -1,0 +1,9 @@
+<% if @serving %>
+  $('#servings').append('<%=j(
+      fields_for(:"shop[servings_attributes]", @serving, index: Time.now.to_f.to_s.sub(/\./, '')) do |builder|
+        render('serving_fields', f: builder)
+      end)
+    %>');
+<% else %>
+  alert('error');
+<% end %>

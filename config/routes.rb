@@ -3,7 +3,9 @@ Tsuwari::Application.routes.draw do
      collection { get :search }
   end
 
-  resources :shops
+  resources :shops do
+    collection { get :add_food }
+  end
   resources :categories
   resources :health_records
 
