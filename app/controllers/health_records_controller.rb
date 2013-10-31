@@ -31,10 +31,7 @@ class HealthRecordsController < ApplicationController
         format.html { redirect_to @health_record, notice: 'Health record was successfully created.' }
         format.json { render action: 'show', status: :created, location: @health_record }
       else
-        if @health_record.eatings_invalid?
-          @not_found_food = @health_record.not_found_food
-          @health_record.cut_eatings_invalid
-        end
+        eatings_invalid
         format.html { render action: 'new' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
@@ -44,21 +41,12 @@ class HealthRecordsController < ApplicationController
   # PATCH/PUT /health_records/1
   # PATCH/PUT /health_records/1.json
   def update
-    result = false
-    begin
-      ActiveRecord::Base.transaction do
-        @health_record.eatings.clear
-        result = @health_record.update(health_record_params)
-      end
-    rescue
-      logger.error $!
-    end
-
     respond_to do |format|
-      if result
+      if @health_record.update(health_record_params)
         format.html { redirect_to @health_record, notice: 'Health record was successfully updated.' }
         format.json { head :no_content }
       else
+        eatings_invalid
         format.html { render action: 'edit' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
@@ -93,6 +81,12 @@ class HealthRecordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_health_record
       @health_record = HealthRecord.find(params[:id])
+    end
+
+    def eatings_invalid
+      return unless @health_record.eatings_invalid?
+      @not_found_food = @health_record.not_found_food
+      @health_record.cut_eatings_invalid
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

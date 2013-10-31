@@ -162,6 +162,55 @@ describe HealthRecordsController do
         response.should render_template("edit")
       end
     end
+
+    context "料理が選択されている場合" do
+      let(:parameters) {
+        {
+          id: @health_record.to_param,
+          health_record: valid_attributes.merge(
+            eatings_attributes: @eatings.map { |r| r.attributes }
+          )
+        }
+      }
+
+      context "食べた料理のvalidateに問題がない場合" do
+        before do
+          @eatings = build_list(:eating, 3, health_record: nil)
+          @health_record = create(:health_record)
+        end
+
+        it "redirects to the health_record" do
+          put :update, parameters, valid_session
+          expect(response).to redirect_to(@health_record)
+          expect(assigns(:health_record).eatings.size).to eq(3)
+        end
+      end
+
+      context "食べた料理のvalidateに問題がある場合" do
+        before do
+          @eatings = build_list(:eating, 3, health_record: nil, food_id: nil)
+          @health_record = create(:health_record)
+        end
+
+        it "redirects to the health_record" do
+          put :update, parameters, valid_session
+          expect(response).to render_template("edit")
+        end
+      end
+
+      context "食べた料理のvalidateに問題があるなし混在の場合" do
+        before do
+          @eatings = build_list(:eating, 3, health_record: nil, food_id: nil) +
+            build_list(:eating, 3, health_record: nil)
+          @health_record = create(:health_record)
+        end
+
+        it "redirects to the health_record" do
+          put :update, parameters, valid_session
+          expect(response).to render_template("edit")
+        end
+      end
+    end
   end
 
   describe "DELETE destroy" do
