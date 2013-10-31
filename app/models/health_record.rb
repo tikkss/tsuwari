@@ -37,7 +37,7 @@ class HealthRecord < ActiveRecord::Base
   #
   # @return [TrueClass, FalseClass]
   def eatings_invalid?
-    eatings.map { |r| r.valid? }.include?(false)
+    eatings.any? { |r| !r.valid? }
   end
 
   # Eatingのvalidateに引っかかったfood_nameを連結して取得
