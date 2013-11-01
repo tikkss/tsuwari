@@ -1,5 +1,5 @@
-<h1>料理新規登録</h1>
+<h1><%= Food.model_name.human + t(:create) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to '一覧に戻る', foods_path %>
+<%= link_to t("back"), foods_path %>
