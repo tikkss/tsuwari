@@ -1,39 +1,47 @@
+<h1><%= Shop.model_name.human + t('show') %></h1>
+<hr />
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= Shop.human_attribute_name :name %></strong>
   <%= @shop.name %>
 </p>
 
 <p>
-  <strong>Prefecture:</strong>
+  <strong><%= Shop.human_attribute_name :prefecture %></strong>
   <%= @shop.prefecture %>
 </p>
 
 <p>
-  <strong>City:</strong>
+  <strong><%= Shop.human_attribute_name :city %></strong>
   <%= @shop.city %>
 </p>
 
 <p>
-  <strong>Address:</strong>
+  <strong><%= Shop.human_attribute_name :address %></strong>
   <%= @shop.address %>
 </p>
 
 <p>
-  <strong>Url:</strong>
+  <strong><%= Shop.human_attribute_name :url %></strong>
   <%= @shop.url %>
 </p>
 
 <p>
-  <strong>Category:</strong>
+  <strong><%= Shop.human_attribute_name :category_id %></strong>
   <%= @shop.category.try(:name) %>
 </p>
 
 <p>
-  <strong>写真:</strong>
+  <strong><%= Shop.human_attribute_name :photo %></strong>
   <%= image_tag @shop.photo.url(:medium) %>
 </p>
 
-<%= link_to 'Edit', edit_shop_path(@shop) %> |
-<%= link_to 'Back', shops_path %>
+<p>
+  <strong><%= Serving.model_name.human %></strong>
+  <%= @shop.foods.pluck(:name).join('、') %>
+</p>
+
+<%= link_to t('edit'), edit_shop_path(@shop) %> |
+<%= link_to t('back'), shops_path %>
