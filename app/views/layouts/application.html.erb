@@ -7,10 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="container">
-  <%= yield %>
-</div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <%= link_to "つわり", root_path, class: "brand" %>
+    </div>
+  </div>
+  
+  <div class="container">
+    <%= yield %>
+  </div>
 
 </body>
 </html>
