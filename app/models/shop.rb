@@ -8,5 +8,5 @@ class Shop < ActiveRecord::Base
   
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   
-  scope :top_page_shops, -> { order("updated_at DESC").limit(3) }
+  scope :recent_shops, -> { order("updated_at DESC").limit(3) }
 end

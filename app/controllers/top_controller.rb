@@ -1,7 +1,7 @@
 class TopController < ApplicationController
 
   def show
-    @shops = Shop.top_page_shops
+    @shops = Shop.recent_shops
     @foods = Food.popular_foods
   end
 
