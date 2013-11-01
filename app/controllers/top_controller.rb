@@ -1,7 +1,7 @@
 class TopController < ApplicationController
 
   def show
-    @foods = Food.population_foods
+    @foods = Food.popular_foods
   end
 
 end

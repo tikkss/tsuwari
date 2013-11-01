@@ -16,7 +16,7 @@ class Food < ActiveRecord::Base
     taste_ids.blank? ? all : where(tastes: { id: taste_ids })
   }
 
-  scope :population_foods, -> {
+  scope :popular_foods, -> {
     joins(:eatings).merge(Eating.so_good.latest).latest
   }
 
