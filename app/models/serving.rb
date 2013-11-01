@@ -9,7 +9,7 @@ class Serving < ActiveRecord::Base
     @food_name=s
   end
 
-  validates :food_id, presence: true
-  validates :food_id, uniqueness: {scope: :shop_id},
+  validates :food_id, presence: true,
+                      uniqueness: {scope: :shop_id},
                       inclusion: { in: Food.all.pluck(:id) }
 end
