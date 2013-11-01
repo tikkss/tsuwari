@@ -13,6 +13,14 @@ class Eating < ActiveRecord::Base
   belongs_to :health_record
   belongs_to :food
 
+  # 全部食べれた料理
+  scope :so_good, -> {
+    where(amount: AMOUNTS.last[:value])
+  }
+  scope :latest, -> {
+    order('eatings.created_at >= ?', 1.week.ago)
+  }
+
   validates :food, presence: true
   validates :amount, presence: true, numericality: { only_integer: true },
     inclusion: { in: AMOUNTS.map { |amount| amount[:value] } }

@@ -1,19 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Date:</strong>
+  <strong><%= HealthRecord.human_attribute_name(:date) %>:</strong>
   <%= @health_record.date %>
 </p>
 
 <p>
-  <strong>Time period:</strong>
+  <strong><%= HealthRecord.human_attribute_name(:time_period) %>:</strong>
   <%= @health_record.get_time_period[:label] %>
 </p>
 
 <p>
-  <strong>Health:</strong>
+  <strong><%= HealthRecord.human_attribute_name(:health) %>:</strong>
   <%= @health_record.get_health[:label] %>
 </p>
 
-<%= link_to 'Edit', edit_health_record_path(@health_record) %> |
-<%= link_to 'Back', health_records_path %>
+<p>
+  <strong><%= Food.human_attribute_name(:name) %>:</strong>
+  <%= @health_record.foods.pluck(:name).join("、") %>
+</p>
+
+<%= link_to t(:edit), edit_health_record_path(@health_record) %> |
+<%= link_to t("back"), health_records_path %>
