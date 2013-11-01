@@ -186,4 +186,28 @@ describe HealthRecord do
       end
     end
   end
+
+  describe "#recent" do
+    before do
+      @today = Time.now
+      5.times do |n|
+        3.times do |i|
+          create(
+            :health_record, date: @today - n.days,
+            time_period: i + 1, health: i + 1
+          )
+        end
+      end
+    end
+
+    let(:ft) { "%Y%m%d" }
+
+    subject { HealthRecord.recent }
+    it { expect(subject.count).to eq(9) }
+    it "最初が一番最近の体調であること" do
+      health_record = subject.first
+      expect(health_record.date.strftime(ft)).to eq(@today.strftime(ft))
+      expect(health_record.time_period).to eq(3)
+    end
+  end
 end
