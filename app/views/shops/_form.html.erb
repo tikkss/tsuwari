@@ -1,4 +1,4 @@
-<%= form_for(@shop) do |f| %>
+<%= form_for(@shop, html: { class: 'form-inline' }) do |f| %>
   <% if @shop.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@shop.errors.count, "error") %> prohibited this shop from being saved:</h2>
@@ -36,13 +36,14 @@
     <%= f.collection_select(:category_id, Category.all, :id, :name, include_blank: true) %>
   </div>
   <div class="field">
-    <%= f.label "写真" %><br>
+    <%= f.label :photo %><br>
     <%= f.file_field :photo %>
   </div>
 
-  提供している料理
+  <hr />
+  <h2><%= Serving.model_name.human %></h2>
   <%= text_field_tag :search_food %>
-  <%= button_tag '料理追加', { type: 'button', id: 'add_serving' } %>
+  <%= button_tag '料理追加', { type: 'button', id: 'add_serving', class: 'btn btn-small btn-primary' } %>
   <div id="food_error">
     <span id="food_name"></span>
     <span id="error_message"></span>

@@ -1,6 +1,7 @@
-<h1>Editing shop</h1>
+<h1><%= Shop.model_name.human + t('edit') %></h1>
+<hr />
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @shop %> |
-<%= link_to 'Back', shops_path %>
+<%= link_to t('show'), @shop %> |
+<%= link_to t('back'), shops_path %>

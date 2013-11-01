@@ -6,11 +6,19 @@ ja:
       health_record: 体調
       shop: お店
       taste: 味
+      serving: 提供している料理
     attributes:
       category:
       food:
       health_record:
       shop:
+        name: 店舗名
+        prefecture: 県
+        city: 市
+        address: 住所
+        url: URL
+        category_id: カテゴリ
+        photo: 店舗の写真
       taste:
   activemodel:
     models:
