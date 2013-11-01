@@ -10,11 +10,19 @@ class HealthRecord < ActiveRecord::Base
     {value: 3, label: '良い'}
   ]
 
+  RECENT_DAY = 3
+  RECENT_MAX_COUNT = 9
+
   has_many :eatings, dependent: :destroy
   has_many :foods, through: :eatings
 
   accepts_nested_attributes_for :eatings,
     reject_if: ->(a) { a[:amount].blank? }, allow_destroy: true
+
+  def self.recent
+    where("date >= :date", date: Time.now - RECENT_DAY.days).
+      order("date desc, time_period desc").limit(RECENT_MAX_COUNT)
+  end
 
   def get_time_period
     ret = {}
