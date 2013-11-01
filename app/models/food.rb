@@ -16,6 +16,14 @@ class Food < ActiveRecord::Base
     taste_ids.blank? ? all : where(tastes: { id: taste_ids })
   }
 
+  scope :population_foods, -> {
+    joins(:eatings).merge(Eating.so_good.latest).latest
+  }
+
+  scope :latest, -> {
+    order('foods.updated_at DESC').limit(3)
+  }
+
 
   # 検索フォームの条件にあった情報を取得
   #

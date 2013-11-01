@@ -1,1 +1,9 @@
-<%= button_to "今日の体調を登録する", new_health_record_path, method: :get, class: "btn btn-default" %>
+<%= button_to "今日の体調を登録する", new_health_record_path, method: :get, class: "btn btn-primary" %>
+
+<p>最近食べれた料理</p>
+<% @foods.each do |food| %>
+  <div>
+    <label class="span2"><%= food.name %><label>
+    <%= link_to(image_tag(food.photo.url(:thumb)), food) if food.photo.present? %>
+  </div>
+<% end %>
