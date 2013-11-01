@@ -15,7 +15,7 @@
 
   <br />
 
-  <strong>写真:</strong>
+  <strong><%= Food.human_attribute_name(:photo) %>:</strong>
   <%= image_tag @food.photo.url(:medium) %>
 </p>
 
