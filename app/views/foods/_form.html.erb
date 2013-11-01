@@ -13,14 +13,14 @@
 
   <div class="row">
     <div class="span1">
-      <%= f.label :name, "料理名" %>
+      <%= f.label :name, Food.human_attribute_name(:name) %>
     </div>
     <%= f.text_field :name, class: "input-medium search-query" %>
   </div>
   <br />
   <div class="row food-search">
     <div class="span1">
-      <%= f.label "味" %>
+      <%= f.label Taste.model_name.human %>
     </div>
     <%= f.collection_check_boxes :taste_ids, @tastes, :id, :name do |b|
       b.label { b.check_box + b.text }
@@ -29,7 +29,7 @@
   <br />
   <div class="row">
     <div class="span1">
-      <%= f.label "写真" %>
+      <%= f.label Food.human_attribute_name(:photo) %>
     </div>
     <%= f.file_field :photo %>
   </div>

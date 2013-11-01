@@ -1,6 +1,6 @@
-<h1>料理情報編集</h1>
+<h1><%= Food.model_name.human + t(:edit) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to '詳細情報参照', @food %> |
-<%= link_to '一覧に戻る', foods_path %>
+<%= link_to t(:show), @food %> |
+<%= link_to t("back"), foods_path %>
