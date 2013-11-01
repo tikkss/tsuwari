@@ -8,7 +8,7 @@
           <%= f.hidden_field :food_id %>
           <%= f.hidden_field :food_name %>
           <%= f.radio_button :amount, amount[:value] %>
-          <%= f.label :amount, amount[:label] %>
+          <%= f.label :amount, amount[:label], value: amount[:value] %>
         <% end %>
         <%= link_to_remove_fields "remove", f %>
       <% end %>
