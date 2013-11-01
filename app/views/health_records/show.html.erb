@@ -12,7 +12,7 @@
 
 <p>
   <strong><%= HealthRecord.human_attribute_name(:health) %>:</strong>
-  <%= @health_record.get_health[:label] %>
+  <%= image_tag "#{@health_record.get_health[:value]}.png" %>
 </p>
 
 <p>
