@@ -17,3 +17,5 @@
 /Gemfile.lock
 /coverage
 /config/initializers/paperclip.rb
+
+/public/system
