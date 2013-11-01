@@ -11,6 +11,7 @@ ja:
     attributes:
       category:
       food:
+        name: 料理名
       health_record:
         date: 日付
         time_period: 時間帯
