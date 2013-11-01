@@ -156,5 +156,4 @@ describe ShopsController do
       response.should redirect_to(shops_url)
     end
   end
-
 end

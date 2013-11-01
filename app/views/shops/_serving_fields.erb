@@ -1,0 +1,10 @@
+<tr class='fields'>
+  <td class='food_name'>
+    <%= f.object.food_name %>
+  </td>
+  <td>
+    <%= f.hidden_field :food_id, value: f.object.food_id %>
+    <%= f.hidden_field :food_name %>
+    <%= link_to_remove_fields '削除', f %>
+  </td>
+</tr>
