@@ -12,6 +12,6 @@ describe "health_records/show" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/朝/)
-    rendered.should match(/普通/)
+    rendered.should match(/2\.png/)
   end
 end
