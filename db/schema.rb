@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20131029053619) do
-
   create_table "categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -28,6 +27,7 @@ ActiveRecord::Schema.define(version: 20131029053619) do
   end
 
   add_index "eatings", ["food_id"], name: "index_eatings_on_food_id"
+  add_index "eatings", ["health_record_id", "food_id"], name: "index_eatings_on_health_record_id_and_food_id", unique: true
   add_index "eatings", ["health_record_id"], name: "index_eatings_on_health_record_id"
 
   create_table "food_tastes", force: true do |t|
