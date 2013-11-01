@@ -1,5 +1,5 @@
-<h1>New health_record</h1>
+<h1><%= HealthRecord.model_name.human + t(:create) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', health_records_path %>
+<%= link_to t(:Back), health_records_path %>

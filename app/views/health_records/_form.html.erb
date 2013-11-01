@@ -1,4 +1,4 @@
-<%= form_for(@health_record) do |f| %>
+<%= form_for @health_record, html: { class: "form-horizontal"} do |f| %>
   <% if @health_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@health_record.errors.count, "error") %> prohibited this health_record from being saved:</h2>
@@ -15,43 +15,64 @@
     <%= render "eatings_invalid", foods: @not_found_food %>
   <% end %>
 
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
+  <div class="field control-group">
+    <%= f.label :date, class: "control-label" %>
+    <div class="controls">
+      <%= f.date_select :date %>
+    </div>
   </div>
-  <div class="field">
-  <% HealthRecord::TIME_PERIODS.each do |time_period| %>
-    <%= f.radio_button :time_period, time_period[:value] %>
-    <%= f.label :time_period, time_period[:label], value: time_period[:value] %>
-  <% end %>
+
+  <div class="field control-group">
+    <%= f.label HealthRecord.human_attribute_name(:time_period), class: "control-label" %>
+    <div class="controls">
+      <% HealthRecord::TIME_PERIODS.each do |time_period| %>
+        <label class="radio inline">
+        <%= f.radio_button :time_period, time_period[:value] %>
+        <%= time_period[:label] %>
+        </label>
+    <% end %>
+    </div>
   </div>
-  <div class="field">
-  <% HealthRecord::HEALTHS.each do |health| %>
-    <%= f.radio_button :health, health[:value] %>
-    <%= f.label :health, health[:label], value: health[:value] %>
-  <% end %>
+
+  <div class="field control-group">
+    <%= f.label HealthRecord.human_attribute_name(:health), class: "control-label" %>
+    <div class="controls">
+      <% HealthRecord::HEALTHS.each do |health| %>
+        <label class="radio inline">
+          <%= f.radio_button :health, health[:value] %>
+          <%= health[:label] %>
+        </label>
+      <% end %>
+    </div>
   </div>
 
   <hr />
 
-  <h2>食べた料理</h2>
+  <h2><%= Eating.model_name.human %></h2>
 
-  <div class="field">
-    <%= text_field_tag :search_food %>
-    <%= button_tag "料理追加", { type: "button", id: "add_food" } %>
-    <div id="food_error">
-      "<span id="food_name" class="error_food"></span>"
-      <span id="error_message"></span>
+  <div class="field control-group">
+    <%= f.label Food.human_attribute_name(:name), class: "control-label" %>
+    <div class="controls">
+      <%= text_field_tag :search_food %>
+      <%= button_tag "#{Food.model_name.human + t(:add)}", { type: "button", id: "add_food" } %>
     </div>
-    <table class="table table-striped" style="width: 50%;" id="eatings">
-      <% @health_record.eatings.each do |eating| %>
-        <%= render "eating_fields", eating: eating %>
-      <% end %>
-    </table>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div id="food_error">
+    "<span id="food_name" class="error_food"></span>"
+    <span id="error_message"></span>
+  </div>
+
+  <table class="table table-striped" style="width: 50%;" id="eatings">
+    <% @health_record.eatings.each do |eating| %>
+      <%= render "eating_fields", eating: eating %>
+    <% end %>
+  </table>
+
+  <div class="field control-group">
+    <div class="actions controls">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>
 
