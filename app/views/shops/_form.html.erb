@@ -41,7 +41,13 @@
   </div>
 
   提供している料理
-  <table class='table table-striped' style='width: 50%;'>
+  <%= text_field_tag :search_food %>
+  <%= button_tag '料理追加', { type: 'button', id: 'add_serving' } %>
+  <div id="food_error">
+    <span id="food_name"></span>
+    <span id="error_message"></span>
+  </div>
+  <table class='table table-striped' style='width: 50%;' id='servings'>
   <%= f.fields_for :servings do |builder| %>
     <%= render 'serving_fields', f: builder %>
   <% end %>

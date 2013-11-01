@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :eating do
-    health_record nil
-    food nil
+    health_record
+    food
     amount 1
   end
 end

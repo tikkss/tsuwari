@@ -31,6 +31,7 @@ class HealthRecordsController < ApplicationController
         format.html { redirect_to @health_record, notice: 'Health record was successfully created.' }
         format.json { render action: 'show', status: :created, location: @health_record }
       else
+        eatings_invalid
         format.html { render action: 'new' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
@@ -45,6 +46,7 @@ class HealthRecordsController < ApplicationController
         format.html { redirect_to @health_record, notice: 'Health record was successfully updated.' }
         format.json { head :no_content }
       else
+        eatings_invalid
         format.html { render action: 'edit' }
         format.json { render json: @health_record.errors, status: :unprocessable_entity }
       end
@@ -61,14 +63,37 @@ class HealthRecordsController < ApplicationController
     end
   end
 
+  def new_eating
+    food = Food.find_by(name: params[:name])
+
+    if food
+      @eating = Eating.new(
+        food: food, food_name: params[:name], amount: Eating::DEFAULT_AMOUNT
+      )
+      render layout: false
+    else
+      render layout: false, partial: "food_not_found",
+        locals: { name: params[:name] }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_health_record
       @health_record = HealthRecord.find(params[:id])
     end
 
+    def eatings_invalid
+      return unless @health_record.eatings_invalid?
+      @not_found_food = @health_record.not_found_food
+      @health_record.cut_eatings_invalid
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def health_record_params
-      params.require(:health_record).permit(:date, :time_period, :health)
+      params.require(:health_record).permit(
+        :date, :time_period, :health,
+        eatings_attributes: [:food_id, :amount, :food_name, :_destroy]
+      )
     end
 end

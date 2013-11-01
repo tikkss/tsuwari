@@ -4,7 +4,7 @@ class ShopsController < ApplicationController
   # GET /shops
   # GET /shops.json
   def index
-    @shops = Shop.all
+    @shops = Shop.includes(:category).all
   end
 
   # GET /shops/1
@@ -15,12 +15,10 @@ class ShopsController < ApplicationController
   # GET /shops/new
   def new
     @shop = Shop.new
-    @shop.servings.build
   end
 
   # GET /shops/1/edit
   def edit
-    @shop.servings.build
   end
 
   # POST /shops
@@ -63,6 +61,16 @@ class ShopsController < ApplicationController
     end
   end
 
+  # GET /add_food
+  def add_food
+    @food = Food.find_by(name: params[:name])
+    @serving = Serving.new(food: @food) if @food
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shop
@@ -71,7 +79,7 @@ class ShopsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shop_params
-      params.require(:shop).permit(:name, :prefecture, :city, :address, :url, :category_id, :photo,
-        servings_attributes: [:id, :food_id, :_destroy])
+      params.require(:shop).permit(:name, :prefecture, :city, :address, :url, :category_id,
+        servings_attributes: [:id, :food_id, :food_name, :_destroy])
     end
 end

@@ -46,6 +46,7 @@ end
 
 # Tsuwari App
 gem 'bootstrap-sass'
+gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 gem 'paperclip'
 gem 'pry-rails'

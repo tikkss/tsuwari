@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :food do
-    name { Faker::Lorem.word }
+    name { Faker::Lorem.words(3).join }
   end
 
   factory :food_long_name, class: :food do
