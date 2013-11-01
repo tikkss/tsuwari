@@ -19,7 +19,7 @@
       <tr>
         <td><%= health_record.date %></td>
         <td><%= health_record.get_time_period[:label] %></td>
-        <td><%= health_record.get_health[:label] %></td>
+        <td><%= image_tag "#{health_record.get_health[:value]}.png" %></td>
         <td><%= link_to t(:show), health_record, class: "btn" %></td>
         <td><%= link_to t(:edit), edit_health_record_path(health_record), class: "btn" %></td>
         <td><%= link_to t(:destroy), health_record,

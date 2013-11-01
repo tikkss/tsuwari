@@ -11,7 +11,7 @@
       <tr>
         <td><%= health_record.date %></td>
         <td><%= health_record.get_time_period[:label] %></td>
-        <td><%= health_record.get_health[:label] %></td>
+        <td><%= image_tag "#{health_record.get_health[:value]}.png" %></td>
       </tr>
     <% end %>
   </tbody>

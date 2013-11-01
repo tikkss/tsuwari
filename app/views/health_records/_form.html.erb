@@ -40,7 +40,7 @@
       <% HealthRecord::HEALTHS.each do |health| %>
         <label class="radio inline">
           <%= f.radio_button :health, health[:value] %>
-          <%= health[:label] %>
+          <%= image_tag "#{health[:value]}.png" %>
         </label>
       <% end %>
     </div>
