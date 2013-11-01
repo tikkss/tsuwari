@@ -61,3 +61,7 @@ group :development, :test do
   gem 'simplecov-rcov'
   gem 'spring'
 end
+
+group :development do
+  gem 'bullet'
+end
