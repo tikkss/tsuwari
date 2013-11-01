@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      category: カテゴリ
+      food: 料理
+      health_record: 体調
+      shop: お店
+      taste: 味
+    attributes:
+      category:
+      food:
+      health_record:
+      shop:
+      taste:
+  activemodel:
+    models:
+    attributes:
