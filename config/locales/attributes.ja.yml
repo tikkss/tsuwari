@@ -12,6 +12,7 @@ ja:
       category:
       food:
         name: 料理名
+        photo: 料理画像
       health_record:
         date: 日付
         time_period: 時間帯
