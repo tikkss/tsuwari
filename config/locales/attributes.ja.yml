@@ -7,10 +7,14 @@ ja:
       shop: お店
       taste: 味
       serving: 提供している料理
+      eating: 食べた料理
     attributes:
       category:
       food:
       health_record:
+        date: 日付
+        time_period: 時間帯
+        health: 体調
       shop:
         name: 店舗名
         prefecture: 県
