@@ -4,7 +4,7 @@ class ShopsController < ApplicationController
   # GET /shops
   # GET /shops.json
   def index
-    @shops = Shop.all
+    @shops = Shop.includes(:category).all
   end
 
   # GET /shops/1

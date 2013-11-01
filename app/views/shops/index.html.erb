@@ -16,7 +16,7 @@
   </thead>
 
   <tbody>
-    <% @shops.includes(:category).each do |shop| %>
+    <% @shops.each do |shop| %>
       <tr>
         <td><%= shop.name %></td>
         <td><%= shop.prefecture %></td>
